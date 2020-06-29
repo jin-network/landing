@@ -3,7 +3,8 @@
     <div class="minW flexB">
       <div class="logo"><img src="@/assets/img/defis.png" alt=""></div>
       <div class="nav flexB">
-        <span>常见问题</span>
+        <!-- <span>常见问题</span> -->
+        <span>Copyright © 2020 DeFis.Network All rights reserved.</span>
       </div>
     </div>
   </div>
@@ -40,12 +41,12 @@ export default {
   }
   .nav{
     span{
-      color: #000;
+      color: #999;
       display: flex;
       align-items: center;
       justify-content: center;
       margin-left: 30px;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: bold;
       letter-spacing: 0.89px;
       cursor: pointer;

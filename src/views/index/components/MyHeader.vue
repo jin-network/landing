@@ -3,24 +3,36 @@
     <div class="minW flexB">
       <div class="logo"><img src="@/assets/img/defis.png" alt=""></div>
       <div class="nav flexB">
-        <span @click="handleToDiv('vision')">项目愿景</span>
-        <span @click="handleToDiv('dfs')">DFS代币</span>
-        <span @click="handleToDiv('project')">项目进度</span>
-        <span>常见问题</span>
-        <span>EN / CN</span>
+        <span @click="handleToDiv('vision')">{{ $t('nav.vision') }}</span>
+        <span @click="handleToDiv('dfs')">{{ $t('nav.dfs') }}</span>
+        <span @click="handleToDiv('project')">{{ $t('nav.project') }}</span>
+        <!-- <span>{{ $t('nav.faq') }}</span> -->
+        <span v-if="language !== 'en'" @click="handleChangeLang('en')">EN</span>
+        <span v-else @click="handleChangeLang('zh-CN')">CN</span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'myHeader',
   data() {
     return {
     }
   },
+  computed:{
+    ...mapState({
+      // 箭头函数可使代码更简练
+      language: state => state.app.language,
+    })
+  },
   methods: {
+    handleChangeLang(type) {
+      this.$i18n.locale = type;
+      this.$store.dispatch('setLanguage', type);
+    },
     handleToDiv(name) {
       this.$emit('listenToDiv', name)
     }
@@ -32,6 +44,7 @@ export default {
 .header{
   padding: 13px auto;
   .minW{
+    height: 80px;;
     min-width: 1200px;
     width: 1200px;
     margin: auto;
@@ -42,8 +55,10 @@ export default {
     justify-content: space-between;
   }
   .logo{
-    height: 60px;
+    height: 80px;
     width: 200px;
+    display: flex;
+    align-items: center;
     img{
       width: 100%;;
     }

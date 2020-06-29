@@ -53,6 +53,7 @@ export default {
       if (this.language !== 'zh-CN') {
         this.language = 'en';
       }
+      this.language = 'zh-CN';
       this.$i18n.locale = this.language;
       this.$store.dispatch('setLanguage', this.language);
     },
