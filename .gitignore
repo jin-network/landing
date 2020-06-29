@@ -7,7 +7,6 @@ yarn-debug.log*
 yarn-error.log*
 package-lock.json*
 
-
 # Editor directories and files
 .idea
 .vscode
@@ -16,3 +15,5 @@ package-lock.json*
 *.njsproj
 *.sln
 *.project
+*.sw?
+release.sh
