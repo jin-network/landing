@@ -23,7 +23,7 @@
             {{ $t('index.cont2') }}
           </div>
           <div class="link">
-            <a href="@/assets/files/DeFis-Network-Whitepaper.pdf"
+            <a href="https://github.com/defis-network/white-paper"
               target="_blank">
               <span>{{ $t('index.link2') }} ></span>
             </a>
@@ -131,7 +131,7 @@ export default {
     handleToApp() {
       // location.href = 'http://apps.defis.network/'
       const target = this.$refs.target;
-      target.setAttribute('href', `http://apps.defis.network/`);
+      target.setAttribute('href', `https://apps.defis.network/`);
       target.click();
     },
     handleToDiv(refName) {
