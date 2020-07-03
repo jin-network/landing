@@ -1,5 +1,4 @@
 import Decimal from 'decimal.js';
-import { EosModel } from '@/utils/eos';
 import moment from 'moment';
 import store from '@/store';
 
@@ -39,36 +38,6 @@ export function accDiv(arg1, arg2) {
     return 0
   }
   return new Decimal(arg1).div(new Decimal(arg2)).toNumber();
-}
-
-// 登录
-export function login(vThis, cb) {
-  EosModel.scatterInit(vThis, () => {
-    handleScatterOut(cb)
-  });
-}
-// 先退出scatter
-function handleScatterOut(cb) {
-  EosModel.accountLoginOut(() => {
-    EosModel.getIdentity('eos', (err => cb(err)));
-  });
-}
-// 获取60秒均价
-export function getPrice(cb) {
-  const baseConfig = store.state.sys.baseConfig;
-  const params = {
-    code: baseConfig.oracle, // 'jinoracle113',
-    json: true,
-    limit: 2,
-    scope: '0',
-    table: 'avgprices',
-  }
-  EosModel.getTableRows(params, (res) => {
-    const list = res.rows || [];
-    const t = list.find(v => v.key === 60) || {};
-    const price = toFixed(t.price0_avg_price / 10000, 4);
-    cb(price);
-  })
 }
 
 // 科学计数法转数值 - 处理 1e-7 这类精度问题

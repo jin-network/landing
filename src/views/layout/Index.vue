@@ -1,5 +1,5 @@
 <template>
-  <div class="layout">
+  <div class="layout" :class="{'mobile': $store.state.app.minScreen}">
     <transition name="fade" mode="out-in">
       <router-view class="content"/>
     </transition>
@@ -45,5 +45,8 @@ export default {
   margin: auto;
   position: relative;
   box-sizing: border-box;
+  &.mobile{
+    min-width: 375px;
+  }
 }
 </style>

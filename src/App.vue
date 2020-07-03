@@ -6,7 +6,6 @@
 
 <script>
 import { mapState } from 'vuex';
-import { GetUrlPara, login } from '@/utils/public';
 
 export default {
   name: 'App',
@@ -15,29 +14,36 @@ export default {
   computed: {
     ...mapState({
       // 箭头函数可使代码更简练
-      baseConfig: state => state.sys.baseConfig, // 基础配置 - 默认为{}
-      testConfig: state => state.sys.testConfig, // 测试网环境
-      devConfig: state => state.sys.devConfig, // 开发环境
-      proConfig: state => state.sys.proConfig, // 生产环境
+      minScreen: state => state.app.minScreen,
     }),
   },
   watch: {
-    // '$route':function list(newVal) {
-    //   console.log(newVal)
-    // }
   },
   created() {
-    this.handleEnvReLoad()
-    this.handleEnvSet();
     this.handleGetPhoneLanguage();
   },
-  mounted() {
-    // this.handleLogin();
+  mounted(){
+    this.handleResize();
+    window.addEventListener('resize', this.handleResize)
+  },
+  beforeDestroy: function () {
+    window.removeEventListener('resize', this.handleResize)
   },
   methods: {
-    // 登录
-    handleLogin() {
-      login(this, () => {})
+    handleResize () {
+      if (document.documentElement.clientWidth <= 750 && !this.minScreen) {
+        this.$store.dispatch('setMinScreen', true)
+        this.$router.push({
+          name: 'indexMobile'
+        })
+        return;
+      }
+      if (document.documentElement.clientWidth > 750 && this.minScreen) {
+        this.$store.dispatch('setMinScreen', false)
+        this.$router.push({
+          name: 'index'
+        })
+      }
     },
     // 第一次使用dapp时，获取手机语言
     handleGetPhoneLanguage() {
@@ -53,34 +59,10 @@ export default {
       if (this.language !== 'zh-CN') {
         this.language = 'en';
       }
-      this.language = 'zh-CN';
+      this.language = 'en';
       this.$i18n.locale = this.language;
       this.$store.dispatch('setLanguage', this.language);
     },
-    // 测试服跳转
-    handleEnvReLoad() {
-      const urlData = GetUrlPara();
-      const protocol = location.protocol;
-      if (urlData.env === 'dev' && protocol === 'https:') {
-        location.href = `http://${location.host}?env=dev`
-      }
-    },
-    // 环境配置
-    handleEnvSet() {
-      const urlData = GetUrlPara();
-      let config = this.baseConfig;
-      if (!urlData.env || urlData.env === 'production') { // 没有配置环境 - 默认生产环境
-        sessionStorage.setItem('ENV', 'production')
-        config = this.proConfig;
-      } else if (urlData.env === 'test') {
-        sessionStorage.setItem('ENV', 'test')
-        config = this.testConfig;
-      } else {
-        sessionStorage.setItem('ENV', 'dev')
-        config = this.devConfig;
-      }
-      this.$store.dispatch('setBaseConfig', config)
-    }
   },
 }
 </script>

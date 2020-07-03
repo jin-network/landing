@@ -40,6 +40,9 @@ export default {
 <style lang="scss" scoped>
 .footer{
   margin: 13px auto;
+  div{
+    font-size: 16px;
+  }
   .minW{
     min-width: 1200px;
     width: 1200px;
@@ -51,8 +54,8 @@ export default {
     justify-content: space-between;
   }
   .logo{
-    height: 60px;
     width: 200px;
+    min-width: 200px;
     img{
       width: 100%;;
     }
@@ -92,6 +95,14 @@ export default {
     }
     .weChat{
       width: 100%;
+    }
+  }
+}
+@media screen and (max-width: 750px) {
+  .footer{
+    .minW{
+      width: 100%;
+      min-width: 100%;
     }
   }
 }

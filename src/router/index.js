@@ -27,6 +27,13 @@ const constantRouter = [
         component: () => import(/* webpackChunkName: "nopage" */ '@/views/index/Index.vue'),
         meta: { title: 'DeFis-BP' },
       },
+      {
+        path: '/index-mobile',
+        name: 'indexMobile',
+        // component: () => import('@/views/index/Index'),
+        component: () => import(/* webpackChunkName: "nopage" */ '@/views/index/IndexMobile.vue'),
+        meta: { title: 'DeFis-BP' },
+      },
     ]
   },
   // 404
